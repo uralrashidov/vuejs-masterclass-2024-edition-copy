@@ -1,19 +1,18 @@
 <script setup lang="ts">
-  import { supabase } from '@/lib/supabaseClient';
-  import { ref } from 'vue';
-  import type { Tables } from '../../../database/types'
+import { supabase } from '@/lib/supabaseClient'
+import { ref } from 'vue'
+import type { Tables } from '../../../database/types'
 
-  const projects = ref<Tables<'projects'>[] | null>(null)
+const projects = ref<Tables<'projects'>[] | null>(null)
 
-  ;(async () => {
-    const { data, error } = await supabase.from('projects').select();
-    if (error) {
-      console.error(error);
-    } else {
-      projects.value = data;
-      console.log('Projects : ', projects.value);
-    }
-  })();
+;(async () => {
+  const { data, error } = await supabase.from('projects').select()
+  if (error) {
+    console.error(error)
+  } else {
+    projects.value = data
+  }
+})()
 </script>
 
 <template>
@@ -27,5 +26,3 @@
     </ul>
   </div>
 </template>
-
-
