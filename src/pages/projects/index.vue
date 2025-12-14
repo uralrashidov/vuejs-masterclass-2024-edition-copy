@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { supabase } from '@/lib/supabaseClient'
-import { ref } from 'vue'
 import type { Tables } from '../../../database/types'
-
+import type { ColumnDef } from '@tanstack/vue-table'
 const projects = ref<Tables<'projects'>[] | null>(null)
 
 ;(async () => {
@@ -13,16 +12,23 @@ const projects = ref<Tables<'projects'>[] | null>(null)
     projects.value = data
   }
 })()
+
+const columns: ColumnDef<Tables<'projects'>>[] = [
+  {
+    accessorKey: 'name',
+    header: () => h('div', { class: 'text-left' }, 'Name'),
+  },
+  {
+    accessorKey: 'status',
+    header: () => h('div', { class: 'text-left' }, 'Status'),
+  },
+  {
+    accessorKey: 'collaborators',
+    header: () => h('div', { class: 'text-left' }, 'Collaborators'),
+  },
+]
 </script>
 
 <template>
-  <div>
-    <h1>Projects Page</h1>
-    <RouterLink to="/">Go to Home</RouterLink>
-    <ul>
-      <li v-for="project in projects" :key="project.id">
-        {{ project.name }}
-      </li>
-    </ul>
-  </div>
+  <DataTable v-if="projects" :data="projects" :columns="columns" />
 </template>
