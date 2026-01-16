@@ -1,34 +1,21 @@
 <script setup lang="ts">
-import { supabase } from '@/lib/supabaseClient'
-import type { Tables } from '../../../database/types'
-import type { ColumnDef } from '@tanstack/vue-table'
-const projects = ref<Tables<'projects'>[] | null>(null)
+import { projectsQuery, type Projects } from '@/utils/supaQueries'
+import { columns } from '@/utils/tableColumns/projectColumns'
 
-;(async () => {
-  const { data, error } = await supabase.from('projects').select()
-  if (error) {
-    console.error(error)
-  } else {
-    projects.value = data
-  }
-})()
+usePageStore().pageData.title = 'Projects'
 
-const columns: ColumnDef<Tables<'projects'>>[] = [
-  {
-    accessorKey: 'name',
-    header: () => h('div', { class: 'text-left' }, 'Name'),
-  },
-  {
-    accessorKey: 'status',
-    header: () => h('div', { class: 'text-left' }, 'Status'),
-  },
-  {
-    accessorKey: 'collaborators',
-    header: () => h('div', { class: 'text-left' }, 'Collaborators'),
-  },
-]
+const projects = ref<Projects | null>(null)
+const getProjects = async () => {
+  const { data, error } = await projectsQuery
+
+  if (error) console.log(error)
+
+  projects.value = data
+}
+
+await getProjects()
 </script>
 
 <template>
-  <DataTable v-if="projects" :data="projects" :columns="columns" />
+  <DataTable v-if="projects" :columns="columns" :data="projects" />
 </template>

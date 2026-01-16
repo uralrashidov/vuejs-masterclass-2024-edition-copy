@@ -1,3 +1,41 @@
+<script setup lang="ts">
+const links = [
+  {
+    title: 'Dashboard',
+    to: '/',
+    icon: 'lucide:house'
+  },
+  {
+    title: 'Projects',
+    to: '/projects',
+    icon: 'lucide:building-2'
+  },
+  {
+    title: 'My Tasks',
+    to: '/tasks',
+    icon: 'lucide:badge-check'
+  }
+]
+
+const accountLinks = [
+  {
+    title: 'Profile',
+    to: '/profile',
+    icon: 'lucide:user'
+  },
+  {
+    title: 'Settings',
+    to: '/settings',
+    icon: 'lucide:settings'
+  },
+  {
+    title: 'Sign Out',
+    to: '/signout',
+    icon: 'lucide:log-out'
+  }
+]
+</script>
+
 <template>
   <aside
     class="flex flex-col h-screen gap-2 border-r fixed bg-muted/40 lg:w-52 w-16 transition-[width]"
@@ -23,19 +61,3 @@
     </nav>
   </aside>
 </template>
-
-<script setup lang="ts">
-const links = [
-  { title: 'Dashboard', to: '/', icon: 'lucide:house' },
-  { title: 'Projects', to: '/projects', icon: 'lucide:building-2' },
-  { title: 'My Tasks', to: '/tasks', icon: 'lucide:badge-check' },
-]
-
-const accountLinks = [
-  { title: 'Profile', to: '/profile', icon: 'lucide:user' },
-  { title: 'Settings', to: '/settings', icon: 'lucide:settings' },
-  { title: 'Sign Out', to: '/signout', icon: 'lucide:log-out' },
-]
-</script>
-
-<style scoped></style>

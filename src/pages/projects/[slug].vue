@@ -4,6 +4,6 @@ const route = useRoute()
 
 <template>
   <div>
-    <h2>Project Name {{ route.params?.slug }}</h2>
+    <h1>Project {{ route.params?.slug }}</h1>
   </div>
 </template>
