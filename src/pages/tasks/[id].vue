@@ -13,9 +13,9 @@ watch(
 )
 
 const getTasks = async () => {
-  const { data, error } = await taskQuery(route.params.id)
+  const { data, error, status } = await taskQuery(route.params.id)
 
-  if (error) console.log(error)
+  if (error) useErrorStore().setError({ error, customCode: status })
 
   task.value = data
 }
@@ -41,7 +41,7 @@ await getTasks()
     </TableRow>
     <TableRow>
       <TableHead> Project </TableHead>
-      <TableCell> Lorem ipsum. </TableCell>
+      <TableCell> {{ task?.projects?.name }} </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Status </TableHead>
