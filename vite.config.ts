@@ -16,6 +16,8 @@ export default defineConfig({
   plugins: [
     VueRouter({
       /* options */
+      routesFolder: 'src/pages', // default
+      dts: './typed-router.d.ts', // default
     }),
     AutoImport({
       include: [

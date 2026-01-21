@@ -47,7 +47,7 @@ export const taskQuery = (id: string | number) =>
   )
 `,
     )
-    .eq('id', id)
+    .eq('id', typeof id === 'string' ? parseInt(id) : id)
     .single()
 
 export type Task = QueryData<ReturnType<typeof taskQuery>>
