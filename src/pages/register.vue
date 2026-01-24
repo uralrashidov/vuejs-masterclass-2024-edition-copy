@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { register } from '@/utils/supaAuth'
+import { Label } from 'radix-vue'
+
 const formData = ref({
   username: '',
   first_name: '',
@@ -7,6 +10,13 @@ const formData = ref({
   password: '',
   confirm_password: '',
 })
+
+const router = useRouter()
+
+const signup = async () => {
+  const isRegistered = await register(formData.value)
+  if (isRegistered) router.push('/')
+}
 </script>
 
 <template>
@@ -23,7 +33,7 @@ const formData = ref({
           <Button variant="outline" class="w-full"> Register with Google </Button>
           <Separator label="Or" />
         </div>
-        <form class="grid gap-4">
+        <form class="grid gap-4" @submit.prevent="signup">
           <div class="grid gap-2">
             <Label id="username" class="text-left">Username</Label>
             <Input
