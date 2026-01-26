@@ -19,6 +19,7 @@ export const register = async (formData: RegisterForm) => {
     ])
     if (error) return console.error('Profiles err', error)
   }
+
   return true
 }
 
@@ -27,6 +28,14 @@ export const login = async (formData: LoginForm) => {
     email: formData.email,
     password: formData.password,
   })
+
+  if (error) return console.error(error)
+
+  return true
+}
+
+export const logout = async () => {
+  const { error } = await supabase.auth.signOut()
   if (error) return console.error(error)
 
   return true

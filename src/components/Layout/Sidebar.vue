@@ -1,39 +1,52 @@
 <script setup lang="ts">
+useAuthStore()
+
 const links = [
   {
     title: 'Dashboard',
     to: '/',
-    icon: 'lucide:house'
+    icon: 'lucide:house',
   },
   {
     title: 'Projects',
     to: '/projects',
-    icon: 'lucide:building-2'
+    icon: 'lucide:building-2',
   },
   {
     title: 'My Tasks',
     to: '/tasks',
-    icon: 'lucide:badge-check'
-  }
+    icon: 'lucide:badge-check',
+  },
 ]
 
 const accountLinks = [
   {
     title: 'Profile',
     to: '/profile',
-    icon: 'lucide:user'
+    icon: 'lucide:user',
   },
   {
     title: 'Settings',
     to: '/settings',
-    icon: 'lucide:settings'
+    icon: 'lucide:settings',
   },
   {
     title: 'Sign Out',
-    to: '/signout',
-    icon: 'lucide:log-out'
-  }
+    icon: 'lucide:log-out',
+  },
 ]
+
+const router = useRouter()
+
+const executeAction = async (linkTitle: string) => {
+  if (linkTitle === 'Sign Out') {
+    const { logout } = await import('@/utils/supaAuth')
+    const isLoggedOut = await logout()
+    if (isLoggedOut) {
+      router.push('/login')
+    }
+  }
+}
 </script>
 
 <template>
@@ -56,7 +69,7 @@ const accountLinks = [
       </div>
 
       <div class="border-y text-center bg-background py-3">
-        <SidebarLinks :links="accountLinks" />
+        <SidebarLinks :links="accountLinks" @actionClicked="executeAction" />
       </div>
     </nav>
   </aside>
