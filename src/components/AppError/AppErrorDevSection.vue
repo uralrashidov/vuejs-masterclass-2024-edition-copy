@@ -2,10 +2,10 @@
 defineProps<{
   message: string
   customCode: number
-  details: string
   code: string
-  hint: string
   statusCode: number
+  hint: string | null
+  details: string
 }>()
 </script>
 

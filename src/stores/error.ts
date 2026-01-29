@@ -3,12 +3,11 @@ import type { PostgrestError } from '@supabase/supabase-js'
 
 export const useErrorStore = defineStore('error-store', () => {
   const activeError = ref<null | CustomError | ExtendedPostgrestError>(null)
-
   const isCustomError = ref(false)
 
   const setError = ({
     error,
-    customCode,
+    customCode
   }: {
     error: string | PostgrestError | Error
     customCode?: number
@@ -16,16 +15,13 @@ export const useErrorStore = defineStore('error-store', () => {
     if (typeof error === 'string') isCustomError.value = true
 
     if (typeof error === 'string' || error instanceof Error) {
-      const err = (typeof error === 'string' ? Error(error) : error) as CustomError
-      err.customCode = customCode || 500
-      activeError.value = err
+      activeError.value = typeof error === 'string' ? Error(error) : error
+      activeError.value.customCode = customCode || 500
       return
     }
 
-    // At this point, TypeScript knows error is PostgrestError
-    const postgrestError = error as ExtendedPostgrestError
-    postgrestError.statusCode = customCode || 500
-    activeError.value = postgrestError
+    activeError.value = error
+    activeError.value.statusCode = customCode || 500
   }
 
   const clearError = () => {
@@ -37,7 +33,7 @@ export const useErrorStore = defineStore('error-store', () => {
     activeError,
     setError,
     isCustomError,
-    clearError,
+    clearError
   }
 })
 

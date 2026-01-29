@@ -2,16 +2,13 @@
 const props = defineProps<{
   message: string
   customCode: number
-  details: string
-  code: string
-  hint: string
   statusCode: number
   isCustomError: boolean
 }>()
 
 const error = ref({
   code: 500,
-  msg: 'Ops! Something went wrong',
+  msg: 'Ops, something went wrong!'
 })
 
 if (props.isCustomError) {
@@ -31,6 +28,7 @@ if (props.statusCode === 406) {
     <h1 class="error__code">{{ error.code }}</h1>
 
     <p class="error__msg">{{ error.msg }}</p>
+
     <div class="error-footer">
       <p class="error-footer__text">You'll find lots to explore on the home page.</p>
       <RouterLink to="/">
